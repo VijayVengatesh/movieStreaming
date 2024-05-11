@@ -1,159 +1,101 @@
-import boxofficemovie1 from '../../images/movies/02.jpg'
-function BoxOffice() {
-  // const boxofficeMovies = [
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   },
-  //   {
-  //     name: "VEERAM",
-  //     img: topmovie1,
-  //   }
-  // ];
-  const boxofficeMovies = [
-    {
-      img: boxofficemovie1,
-      name: "THE LOVE",
-      releaseYear: "2021",
-      agelimit: "18+",
-      mvoieType: "'Action",
-    },
-    {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: boxofficemovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      }
-  ];
+import axios from "axios";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import popularMovie1 from "../../images/popular/01.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import WatchMovie from "../WatchMovie";
+import { useState } from "react";
+function BoxOffice({ box }) {
+  const Navigate = useNavigate();
+  console.log("box", box);
+
+  const watch = async (i) => {
+    const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
+    console.log(res.data);
+    Navigate(`/watchmovie/${i}`);
+  };
+
+  if (!box) {
+    return <h1>no data for box</h1>;
+  }
+
   return (
     <>
       <section class="pupular">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
-              <h2 class="block-title">TOP 10 BOX OFFICE</h2>
+              <h2 class="block-title">TOP 10 BOX OFFICE </h2>
               {/* <!-- Start Pupular Slider --> */}
-              <div class="owl-carousel owl-theme" id="boxoffice-slider">
-              {boxofficeMovies.map((sin) => (
-                  <div class="item">
-                    <div class="video-block">
-                      <div class="video-thumb position-relative thumb-overlay">
-                        <a href="#">
-                          <img alt="" class="img-fluid" src={sin.img} style={{height:"283px"}}/>
-                        </a>
-                        <div class="box-content">
-                          <ul class="icon">
-                            <li>
-                              <a href="watch-movie.html">
-                                <i class="fas fa-play"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-plus"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="movie-single.html">
-                                <i class="fas fa-info"></i>
-                              </a>
-                            </li>
-                          </ul>
+              <OwlCarousel
+                className="owl-theme"
+                loop
+                margin={10}
+                items={5}
+                responsive={{
+                  0: { items: 2 },
+                  600: { items: 3 },
+                  1000: { items: 5 },
+                }}
+                dotClass="customdots"
+                responsiveClass="true"
+              >
+                {Array.isArray(box) &&
+                  box.map((sin, index) => (
+                    <div
+                      className="item cal-auto"
+                      key={index}
+                      style={{ display: "inline-block", marginRight: "10px" }}
+                    >
+                      <div className="video-block">
+                        <div className="video-thumb position-relative thumb-overlay">
+                          <a href="#">
+                            <img
+                              alt=""
+                              className="img-fluid"
+                              src={`http://localhost:5000/images/${sin.image}`}
+                            />
+                          </a>
+                          <div className="box-content">
+                            <ul className="icon">
+                              <li>
+                                <Link
+                                  to="/watchmovie"
+                                  onClick={() => watch(sin._id)}
+                                >
+                                  <i className="fas fa-play"></i>
+                                </Link>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i className="fas fa-plus"></i>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="movie-single.html">
+                                  <i className="fas fa-info"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
-                        {/* <!-- Box Content End --> */}
-                      </div>
-                      {/* <!-- Video Thumb End --> */}
-                      <div class="video-content">
-                        <h2 class="video-title">
-                          <a href="movie-single.html">{sin.name}</a>
-                        </h2>
-                        <div class="video-info d-flex align-items-center">
-                          <span class="video-year">{sin.releaseYear}</span>{" "}
-                          <span class="video-age">{sin.agelimit}</span>{" "}
-                          <span class="video-type">{sin.mvoieType}</span>
+                        <div className="video-content">
+                          <h2 className="video-title">
+                            <a href="movie-single.html">{sin.name}</a>
+                          </h2>
+                          <div className="video-info d-flex align-items-center">
+                            <span className="video-year">
+                              {sin.releaseYear}
+                            </span>{" "}
+                            <span className="video-age">{sin.ageLimit}</span>{" "}
+                            <span className="video-type">{sin.movieType}</span>
+                          </div>
                         </div>
                       </div>
-                      {/* <!-- video Content End --> */}
                     </div>
-                    {/* <!-- video Block End --> */}
-                  </div>
-                ))}
-              </div>
+                  ))}
+              </OwlCarousel>
               {/* <!-- Pupular Slider End --> */}
             </div>
             {/* <!-- Col End --> */}

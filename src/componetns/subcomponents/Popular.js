@@ -3,60 +3,46 @@ function Popular() {
   const popularMovies = [
     {
       img: popularMovie1,
-      name: "THE LOVE",
+      name: "THE ccccc",
       releaseYear: "2021",
       agelimit: "18+",
       mvoieType: "'Action",
     },
     {
         img: popularMovie1,
-        name: "THE LOVE",
+        name: "THE gfcgfc",
         releaseYear: "2021",
         agelimit: "18+",
         mvoieType: "'Action",
       },
       {
         img: popularMovie1,
-        name: "THE LOVE",
+        name: "THE g gj ",
         releaseYear: "2021",
         agelimit: "18+",
         mvoieType: "'Action",
       },
       {
         img: popularMovie1,
-        name: "THE LOVE",
+        name: "THE vijay",
         releaseYear: "2021",
         agelimit: "18+",
         mvoieType: "'Action",
       },
       {
-        img: popularMovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: popularMovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: popularMovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      },
-      {
-        img: popularMovie1,
-        name: "THE LOVE",
-        releaseYear: "2021",
-        agelimit: "18+",
-        mvoieType: "'Action",
-      }
+          img: popularMovie1,
+          name: "THE good",
+          releaseYear: "2021",
+          agelimit: "18+",
+          mvoieType: "'Action",
+        },
+        {
+          img: popularMovie1,
+          name: "THE bad ",
+          releaseYear: "2021",
+          agelimit: "18+",
+          mvoieType: "'Action",
+        }
   ];
   return (
     <>
@@ -65,11 +51,11 @@ function Popular() {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
-              <h2 class="block-title">Pupular Movies</h2>
+             <h2 class="block-title">Popular Movies</h2> 
               {/* <!-- Start Pupular Slider --> */}
               <div class="owl-carousel owl-theme" id="pupular-slider">
-                {popularMovies.map((sin) => (
-                  <div class="item">
+                {popularMovies.map((sin,index) => (
+                  <div class="item" key={index}>
                     <div class="video-block">
                       <div class="video-thumb position-relative thumb-overlay">
                         <a href="#">
@@ -102,8 +88,8 @@ function Popular() {
                           <a href="movie-single.html">{sin.name}</a>
                         </h2>
                         <div class="video-info d-flex align-items-center">
-                          <span class="video-year">{sin.releaseYear}</span>{" "}
-                          <span class="video-age">{sin.agelimit}</span>{" "}
+                          <span class="video-year">{sin.releaseYear}</span>
+                          <span class="video-age">{sin.agelimit}</span>
                           <span class="video-type">{sin.mvoieType}</span>
                         </div>
                       </div>

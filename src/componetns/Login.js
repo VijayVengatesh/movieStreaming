@@ -5,7 +5,8 @@ import Header from "./subcomponents/Header";
 import Footer from "./subcomponents/Footer";
 import axios from "axios";
 function Login() {
-  const Navigate=useNavigate()
+  const[error,setError]=useState("")
+  const Navigate = useNavigate();
   const [loginUser, setLoginUser] = useState();
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,10 +15,17 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const res=await axios.post("http://localhost:5000/login",loginUser)
-    window.sessionStorage.setItem("user",res.data.token)
-    Navigate("/")
+
+    const res = await axios.post("http://localhost:5000/login", loginUser);
+    if (res.data.loginStatus) {
+      window.sessionStorage.setItem("user", res.data.token);
+      Navigate("/");
+    }
+    else{
+      console.log(res.data)
+      setError(res.data.message)
+      return
+    }
     // console.log(window.sessionStorage.getItem("user"))
   };
   return (
@@ -50,7 +58,7 @@ function Login() {
               <div class="col-lg-6">
                 {/* <!-- Start Form --> */}
                 <form id="login-form" class="mb-4" onSubmit={handleSubmit}>
-                  <div class="error-container"></div>
+                  <div class="error-container" style={{color:"red", fontSize:"20px", textAlign:"center",fontFamily:"sans-serif"}}>{error}</div>
                   <div class="form-group">
                     <label class="control-label col-xs-4">Username</label>
                     <input
@@ -87,7 +95,7 @@ function Login() {
                     <a
                       href="watch-movie.html"
                       class="btn facebook-color d-block hvr-sweep-to-right mb-3"
-                      tabindex="0"
+                      tabIndex="0"
                     >
                       <i class="icofont-facebook mr-2" aria-hidden="true"></i>
                       Facebook
@@ -98,7 +106,7 @@ function Login() {
                     <a
                       href="watch-movie.html"
                       class="btn twitter-color d-block hvr-sweep-to-right mb-3"
-                      tabindex="0"
+                      tabIndex="0"
                     >
                       <i class="icofont-twitter mr-2" aria-hidden="true"></i>
                       Twitter

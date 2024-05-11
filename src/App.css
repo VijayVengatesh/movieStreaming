@@ -1,0 +1,9 @@
+
+.customdots
+{
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 5px;
+  border: none;
+}

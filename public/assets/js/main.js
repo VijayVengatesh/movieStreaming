@@ -106,28 +106,6 @@ jQuery(function ($) {
         }
     });
 
-    $('#boxoffice-slider').owlCarousel({
-        loop: true,
-        margin: 30,
-        autoplay: true,
-        items: 7,
-        nav: false,
-        dots: true,
-        responsive: {
-            0: {
-                items: 2
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 5
-            }
-
-
-        }
-    });
-
 
     // Number Counters
 

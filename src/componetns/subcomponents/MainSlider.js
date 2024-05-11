@@ -74,7 +74,7 @@ function MainSlider() {
                       <a
                         class="btn hvr-sweep-to-right"
                         href="watch-movie.html"
-                        tabindex="0"
+                        tabIndex="0"
                       >
                         <i aria-hidden="true" class="fa fa-play mr-2"></i>Play
                         Now
@@ -82,7 +82,7 @@ function MainSlider() {
                       <a
                         class="btn hvr-sweep-to-right ml-3"
                         href="#"
-                        tabindex="0"
+                        tabIndex="0"
                       >
                         <i class="fas fa-plus mr-2"></i>My List
                       </a>

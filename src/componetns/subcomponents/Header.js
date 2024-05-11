@@ -226,11 +226,11 @@ function Header() {
                   {/* <!-- Nav Item 4 End --> */}
                   <li class="nav-item">
                     <div class="nav-filter">
-                      <a class="nav-link openbtn" onclick="openNav()">
+                      <a class="nav-link openbtn" onClick="openNav()">
                         <svg
                           class="filter-animate"
                           height="24"
-                          viewbox="0 0 24 24"
+                          viewBox="0 0 24 24"
                           width="24"
                           xmlns="http://www.w3.org/2000/svg"
                         >

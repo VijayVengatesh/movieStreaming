@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Signup() {
+  const[error,setError]=useState("")
   const [signupUserDetail, setSignupUserDetail] = useState();
   const[passwordMatch,setPasswordMatch]=useState(false)
 
@@ -19,8 +20,15 @@ function Signup() {
         setPasswordMatch(true)
     }
     else{
+      setPasswordMatch(false)
         const res=await axios.post("http://localhost:5000/signup",signupUserDetail)
-        console.log(res.data)
+        if(res.data.signupStatus)
+          {
+            setError(res.data.message)
+          }
+          else{
+            setError(res.data.message )
+          }
     }
   };
 
@@ -56,7 +64,7 @@ function Signup() {
               <div class="col-lg-12">
                 {/* <!-- Start Form --> */}
                 <form id="signup-form" onSubmit={handleSubmit}>
-                  <div class="error-container"></div>
+                  <div class="error-container" style={{fontSize:"20px",fontFamily:"sans-serif",textAlign:"center", color:"red"}}>{error}</div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
