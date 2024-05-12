@@ -143,6 +143,11 @@ exports.findSingleMoovie = async (req, res) => {
 
 exports.popularMovies = async (req, res) => {
   console.log("popularmoives router called");
-  const result = await BoxOffice.find();
+  const result = await BoxOffice.find().sort({views:'desc'}).skip(0).limit(10)
   res.send(result);
 };
+
+exports.trendingMovies=async(req,res)=>{
+  console.log("trendingMovies Router called");
+
+}

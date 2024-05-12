@@ -30,7 +30,7 @@ function BoxOffice({ box }) {
               {/* <!-- Start Pupular Slider --> */}
               <OwlCarousel
                 className="owl-theme"
-                loop
+                loop='true'
                 margin={10}
                 items={5}
                 responsive={{
@@ -38,6 +38,9 @@ function BoxOffice({ box }) {
                   600: { items: 3 },
                   1000: { items: 5 },
                 }}
+                dragClass="owl-drag"
+                autoplay="true"
+                autoplayTimeout='3000'
                 dotClass="customdots"
                 responsiveClass="true"
               >
@@ -46,11 +49,11 @@ function BoxOffice({ box }) {
                     <div
                       className="item cal-auto"
                       key={index}
-                      style={{ display: "inline-block", marginRight: "10px" }}
+                      style={{marginRight: "10px" }}
                     >
                       <div className="video-block">
                         <div className="video-thumb position-relative thumb-overlay">
-                          <a href="#">
+                          <a>
                             <img
                               alt=""
                               className="img-fluid"
@@ -68,7 +71,7 @@ function BoxOffice({ box }) {
                                 </Link>
                               </li>
                               <li>
-                                <a href="#">
+                                <a>
                                   <i className="fas fa-plus"></i>
                                 </a>
                               </li>

@@ -10,26 +10,29 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [boxofficeMovies, setBoxofficeMovies] = useState();
+  const[popularMovies,setPopularMovies]=useState()
 
   useEffect(() => {
     async function getData() {
       const res = await axios.get("http://localhost:5000/getboxofficemovies");
       // const data=res.data
       setBoxofficeMovies(res.data);
+
+      const respop=await axios.get('http://localhost:5000/popularmovies')
+      setPopularMovies(respop.data)
     }
     getData()
   }, []);
-  console.log("box office",boxofficeMovies)
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index boxofficeMovies={boxofficeMovies}/>}></Route>
+          <Route path="/" element={<Index boxofficeMovies={boxofficeMovies} popularMovies={popularMovies}/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/watchmovie/:id" element={<WatchMovie/>} />
           <Route path="/admin" element={<Admin/>}></Route>
-          <Route path="/watchmovie" element={<Index boxofficeMovies={boxofficeMovies}/>}/>
+          <Route path="/watchmovie" element={<Index boxofficeMovies={boxofficeMovies} popularMovies={popularMovies}/>}/>
         </Routes>
       </BrowserRouter>
     </>

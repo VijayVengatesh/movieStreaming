@@ -50,16 +50,16 @@ function Footer()
                                 <div class="widget-content footer-menu">
                                     <ul class="f-link list-unstyled mb-0">
                                         <li>
-                                            <a href="#">Action</a>
+                                            <a>Action</a>
                                         </li>
                                         <li>
-                                            <a href="#">Comedy</a>
+                                            <a>Comedy</a>
                                         </li>
                                         <li>
-                                            <a href="#">Drama</a>
+                                            <a>Drama</a>
                                         </li>
                                         <li>
-                                            <a href="#">Horror</a>
+                                            <a>Horror</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -79,16 +79,16 @@ function Footer()
                                 <div class="widget-content footer-menu">
                                     <ul class="f-link list-unstyled mb-0">
                                         <li>
-                                            <a href="#">2018 Year</a>
+                                            <a>2018 Year</a>
                                         </li>
                                         <li>
-                                            <a href="#">2019 Year</a>
+                                            <a>2019 Year</a>
                                         </li>
                                         <li>
-                                            <a href="#">2020 Year</a>
+                                            <a>2020 Year</a>
                                         </li>
                                         <li>
-                                            <a href="#">2021 Year</a>
+                                            <a>2021 Year</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -108,16 +108,16 @@ function Footer()
                                 <div class="widget-content footer-menu">
                                     <ul class="f-link list-unstyled mb-0">
                                         <li>
-                                            <a href="#">720p HDTV</a>
+                                            <a>720p HDTV</a>
                                         </li>
                                         <li>
-                                            <a href="#">1080p BluRay</a>
+                                            <a>1080p BluRay</a>
                                         </li>
                                         <li>
-                                            <a href="#">720p BluRay</a>
+                                            <a>720p BluRay</a>
                                         </li>
                                         <li>
-                                            <a href="#">1080p WEB-DL</a>
+                                            <a>1080p WEB-DL</a>
                                         </li>
                                     </ul>
                                 </div>

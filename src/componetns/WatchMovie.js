@@ -352,7 +352,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/01.jpg"
@@ -367,7 +367,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
@@ -399,7 +399,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/02.jpg"
@@ -414,7 +414,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
@@ -446,7 +446,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/03.jpg"
@@ -461,7 +461,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
@@ -493,7 +493,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/04.jpg"
@@ -508,7 +508,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
@@ -540,7 +540,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/05.jpg"
@@ -555,7 +555,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
@@ -587,7 +587,7 @@ function WatchMovie() {
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                 <div class="video-block">
                   <div class="video-thumb position-relative thumb-overlay">
-                    <a href="#">
+                    <a>
                       <img
                         class="img-fluid"
                         src="images/best-action/06.jpg"
@@ -602,7 +602,7 @@ function WatchMovie() {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>

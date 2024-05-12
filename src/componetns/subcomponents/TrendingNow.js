@@ -58,14 +58,14 @@ function TrendingNow()
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
                                     <div class="video-block">
                                         <div class="video-thumb position-relative thumb-overlay">
-                                            <a href="#"><img alt="" class="img-fluid" src={Trending1}/></a>
+                                            <a><img alt="" class="img-fluid" src={Trending1}/></a>
                                             <div class="box-content">
                                                 <ul class="icon">
                                                     <li>
                                                         <a href="watch-movie.html"><i class="fas fa-play"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i class="fas fa-plus"></i></a>
+                                                        <a><i class="fas fa-plus"></i></a>
                                                     </li>
                                                     <li>
                                                         <a href="movie-single.html"><i class="fas fa-info"></i></a>

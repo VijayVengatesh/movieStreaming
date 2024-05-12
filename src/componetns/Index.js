@@ -9,8 +9,7 @@ import Popular from "./subcomponents/Popular";
 import TrendingNow from "./subcomponents/TrendingNow";
 import axios from "axios";
 
-function Index({boxofficeMovies}) {
-  console.log("index",boxofficeMovies)
+function Index({boxofficeMovies,popularMovies}) {
   return (
     <>
     <div id="loader-wrapper">
@@ -31,7 +30,7 @@ function Index({boxofficeMovies}) {
         {/* main content start */}
         <div className="main-content">
           <MainTabs />
-          <Popular />
+          <Popular popMovies={popularMovies}/>
           <BoxOffice box={boxofficeMovies}/>
           <TrendingNow />
           <LastSeasonSection />

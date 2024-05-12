@@ -192,7 +192,7 @@ function MainTabs() {
                       >
                         <div class="video-block">
                           <div class="video-thumb position-relative thumb-overlay">
-                            <a href="#">
+                            <a>
                               <img alt="" class="img-fluid" src={sin.img} />
                             </a>
                             <div class="box-content">
@@ -203,7 +203,7 @@ function MainTabs() {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a>
                                     <i class="fas fa-plus"></i>
                                   </a>
                                 </li>
@@ -247,7 +247,7 @@ function MainTabs() {
                       >
                         <div class="video-block">
                           <div class="video-thumb position-relative thumb-overlay">
-                            <a href="#">
+                            <a>
                               <img alt="" class="img-fluid" src={sin.img} />
                             </a>
                             <div class="box-content">
@@ -258,7 +258,7 @@ function MainTabs() {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a>
                                     <i class="fas fa-plus"></i>
                                   </a>
                                 </li>
@@ -298,7 +298,7 @@ function MainTabs() {
                         <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                         <div class="video-block">
                           <div class="video-thumb position-relative thumb-overlay">
-                            <a href="#">
+                            <a>
                               <img
                                 alt=""
                                 class="img-fluid"
@@ -313,7 +313,7 @@ function MainTabs() {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a>
                                     <i class="fas fa-plus"></i>
                                   </a>
                                 </li>
