@@ -3,100 +3,8 @@ import drama1 from "../../images/best-drama/01.jpg";
 import action1 from "../../images/best-action/01.jpg";
 import romance1 from "../../images/best-romance/01.jpg";
 import Index from "../Index";
-function LastSeasonSection() {
-  const dramaMovies = [
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: drama1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-  ];
-  const actionMovies = [
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-    {
-      img: action1,
-      releaseYear: "2021",
-      seasonCount: "4 season",
-    },
-  ];
-  const romanceMovies=[{
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  },
-  {
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  },{
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  },
-  {
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  },
-  {
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  },
-  {
-    img: romance1,
-    releaseYear: "2021",
-    seasonCount: "4 season",
-  }]
+function LastSeasonSection({action,drama,romance}) {
+  console.log("romance",romance)
   return (
     <>
       {/* <!-- Start Last Seasons Section --> */}
@@ -160,12 +68,12 @@ function LastSeasonSection() {
                   class="tab-pane animated fadeInRight show active"
                 >
                   <div class="row">
-                    {dramaMovies.map((sin,Index)=>(
+                    {Array.isArray(drama)&&drama.map((sin,Index)=>(
                         <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={Index}>
                         <div class="video-block">
                           <div class="video-thumb position-relative thumb-overlay">
                             <a>
-                              <img alt="" class="img-fluid" src={sin.img} />
+                              <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
                             </a>
                             <div class="box-content">
                               <ul class="icon">
@@ -191,11 +99,11 @@ function LastSeasonSection() {
                           {/* <!-- Video Thumb End --> */}
                           <div class="video-content">
                             <h2 class="video-title">
-                              <a href="shows-single.html">{sin.name}</a>
+                              <a href="shows-single.html">{sin.movieName}</a>
                             </h2>
                             <div class="video-info d-flex align-items-center">
                               <span class="video-year">{sin.releaseYear}</span>{" "}
-                              <span class="video-seasons">{sin.seasonCount}</span>
+                              <span class="video-seasons">{sin.ageLimit}</span>
                             </div>
                           </div>
                           {/* <!-- video Content End --> */}
@@ -210,12 +118,12 @@ function LastSeasonSection() {
                 {/* <!-- Tab Pane 1 End --> */}
                 <div id="pills-action" class="tab-pane animated fadeInRight">
                   <div class="row">
-                    {actionMovies.map((sin,index)=>(
+                    {Array.isArray(action)&&action.map((sin,index)=>(
                       <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
                       <div class="video-block">
                         <div class="video-thumb position-relative thumb-overlay">
                           <a>
-                            <img alt="" class="img-fluid" src={sin.img} />
+                            <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
                           </a>
                           <div class="box-content">
                             <ul class="icon">
@@ -241,11 +149,11 @@ function LastSeasonSection() {
                         {/* <!-- Video Thumb End --> */}
                         <div class="video-content">
                           <h2 class="video-title">
-                            <a href="shows-single.html">{sin.name}</a>
+                            <a href="shows-single.html">{sin.movieName}</a>
                           </h2>
                           <div class="video-info d-flex align-items-center">
                             <span class="video-year">{sin.releaseYear}</span>{" "}
-                            <span class="video-seasons">{sin.seasonCount}</span>
+                            <span class="video-seasons">{sin.ageLimit}</span>
                           </div>
                         </div>
                         {/* <!-- video Content End --> */}
@@ -258,12 +166,12 @@ function LastSeasonSection() {
                 {/* <!-- Tab Pane 2 End --> */}
                 <div id="pills-romance" class="tab-pane animated fadeInRight">
                   <div class="row">
-                    {romanceMovies.map((sin,index)=>(
+                    {Array.isArray(romance)&&romance.map((sin,index)=>(
                       <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
                       <div class="video-block">
                         <div class="video-thumb position-relative thumb-overlay">
                           <a>
-                            <img alt="" class="img-fluid" src={sin.img} />
+                            <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
                           </a>
                           <div class="box-content">
                             <ul class="icon">
@@ -289,11 +197,11 @@ function LastSeasonSection() {
                         {/* <!-- Video Thumb End --> */}
                         <div class="video-content">
                           <h2 class="video-title">
-                            <a href="shows-single.html">{sin.name}</a>
+                            <a href="shows-single.html">{sin.movieName}</a>
                           </h2>
                           <div class="video-info d-flex align-items-center">
                             <span class="video-year">{sin.releaseYear}</span>{" "}
-                            <span class="video-seasons">{sin.seasonCount}</span>
+                            <span class="video-seasons">{sin.ageLimit}</span>
                           </div>
                         </div>
                         {/* <!-- video Content End --> */}

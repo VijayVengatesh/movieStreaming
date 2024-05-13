@@ -1,50 +1,13 @@
-import Trending1 from '../../images/trending/01.jpg'
-function TrendingNow()
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+function TrendingNow({trend})
 {
-    const trendingMovies=[
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        },
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        },
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        },
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        },
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        },
-        {
-            img:Trending1,
-            name:'FREEDOM',
-            releaseDate:"2021",
-            ageLimit:"18+",
-            movieType:"Action"
-        }
-        ]
+    const Navigate=useNavigate()
+    const watch = async (i) => {
+        const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`)
+        console.log(res.data);
+        Navigate(`/watchmovie/${i}`);
+      };
     return(
         <>
         {/* <!-- Start Trending Section --> */}
@@ -54,15 +17,15 @@ function TrendingNow()
                         <div class="col-lg-12">
                             <h2 class="block-title">Trending Now</h2>
                             <div class="row">
-                                {trendingMovies.map((sin,index)=>(
+                                {Array.isArray(trend)&&trend.map((sin,index)=>(
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
                                     <div class="video-block">
                                         <div class="video-thumb position-relative thumb-overlay">
-                                            <a><img alt="" class="img-fluid" src={Trending1}/></a>
+                                            <a><img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`}/></a>
                                             <div class="box-content">
                                                 <ul class="icon">
                                                     <li>
-                                                        <a href="watch-movie.html"><i class="fas fa-play"></i></a>
+                                                        <a href="watch-movie.html"><Link onClick={()=>{watch(sin._id)}}><i class="fas fa-play"></i></Link></a>
                                                     </li>
                                                     <li>
                                                         <a><i class="fas fa-plus"></i></a>
@@ -76,9 +39,9 @@ function TrendingNow()
                                         </div>
                                         {/* <!-- Video Thumb End --> */}
                                         <div class="video-content">
-                                            <h2 class="video-title"><a href="movie-single.html">Freedom</a></h2>
+                                            <h2 class="video-title"><a>{sin.movieName}</a></h2>
                                             <div class="video-info d-flex align-items-center">
-                                                <span class="video-year">2021</span> <span class="video-age">+18</span> <span class="video-type">Action</span>
+                                                <span class="video-year">{sin.releaseYear}</span> <span class="video-age">{sin.ageLimit}</span> <span class="video-type">{sin.movieType}</span>
                                             </div>
                                         </div>
                                         {/* <!-- video Content End --> */}

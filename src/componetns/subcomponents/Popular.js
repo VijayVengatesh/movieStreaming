@@ -61,7 +61,6 @@ function Popular({popMovies}) {
                             <ul className="icon">
                               <li>
                                 <Link
-                                  to="/watchmovie"
                                   onClick={() => watch(sin._id)}
                                 >
                                   <i className="fas fa-play"></i>

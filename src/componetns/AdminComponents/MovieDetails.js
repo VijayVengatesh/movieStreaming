@@ -57,7 +57,7 @@ function MovieDetails() {
       console.log(res.data)
 
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
   return (

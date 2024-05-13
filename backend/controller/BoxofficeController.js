@@ -2,6 +2,7 @@ const multer = require("multer");
 const BoxOffice = require("../model/BoxOffice");
 const path = require("path");
 const { error } = require("console");
+const { default: axios } = require("axios");
 let randomImage;
 let randomVideo;
 
@@ -150,4 +151,49 @@ exports.popularMovies = async (req, res) => {
 exports.trendingMovies=async(req,res)=>{
   console.log("trendingMovies Router called");
 
+  const result=await BoxOffice.find().sort({createdAt:'desc'}).skip(0).limit(6)
+  .then(result=>{
+    res.send(result)
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+
+}
+
+
+exports.newSeasonActionMovies=async(req,res)=>{
+  console.log("newSeasonActionMovies Router Called")
+
+  const result=await BoxOffice.find({movieType:"Action"}).sort({createdAt:"ascending"}).skip(0).limit(6)
+  .then(result=>{
+    res.send(result)
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+}
+
+exports.newSeasonDramaMovies=async(req,res)=>{
+    console.log("newSeasonDramaMovies Router Called")
+
+    const result=await  BoxOffice.find({movieType:"Drama"}).sort({createdAt:"descending"})
+    .then(result=>{
+      res.send(result)
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+}
+
+exports.newSeasonRomanceMovies=async(req,res)=>{
+  console.log("newSwasonRomanceMovies Router Called")
+
+  const result=await BoxOffice.find({movieType:"Romance"}).sort({createdAt:"desc"})
+  .then(result=>{
+    res.send(result)
+  })
+  .catch(err=>{
+    res.send(err)
+  })
 }
