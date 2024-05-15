@@ -4,19 +4,20 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { Link, useNavigate } from "react-router-dom";
 import popularMovie1 from "../../images/popular/01.jpg";
 import axios from "axios";
-function Popular({popMovies}) {
-  const Navigate=useNavigate()
-  console.log("popular movies",popMovies)
-  const popMovie=popMovies
-  const watch = async (i) => {
-    const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-    console.log(res.data);
-    Navigate(`/watchmovie/${i}`);
-  };
-  if(!popMovies)
-    {
-      return(<h1>popular Movies no data for fetching</h1>)
+function Popular({ popMovies }) {
+  const Navigate = useNavigate();
+  const popMovie = popMovies;
+  const watch = async (i,mType) => {
+    if (!sessionStorage.getItem("user")) {
+      Navigate("/signup");
+    } else {
+      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
+      Navigate(`/watchmovie/${i}/${mType}`);
     }
+  };
+  if (!popMovies) {
+    return <h1>popular Movies no data for fetching</h1>;
+  }
   return (
     <>
       {/* <!-- Start Pupular Section --> */}
@@ -37,7 +38,7 @@ function Popular({popMovies}) {
                 }}
                 dragClass="owl-drag"
                 autoplay="true"
-                autoplayTimeout='3000'
+                autoplayTimeout="3000"
                 dotClass="customdots"
                 responsiveClass="true"
               >
@@ -46,7 +47,7 @@ function Popular({popMovies}) {
                     <div
                       className="item cal-auto"
                       key={index}
-                      style={{marginRight: "10px" }}
+                      style={{ marginRight: "10px" }}
                     >
                       <div className="video-block">
                         <div className="video-thumb position-relative thumb-overlay">
@@ -60,11 +61,9 @@ function Popular({popMovies}) {
                           <div className="box-content">
                             <ul className="icon">
                               <li>
-                                <Link
-                                  onClick={() => watch(sin._id)}
-                                >
+                                <a onClick={() => watch(sin._id,sin.movieType)}>
                                   <i className="fas fa-play"></i>
-                                </Link>
+                                </a>
                               </li>
                               <li>
                                 <a>

@@ -3,8 +3,18 @@ import drama1 from "../../images/best-drama/01.jpg";
 import action1 from "../../images/best-action/01.jpg";
 import romance1 from "../../images/best-romance/01.jpg";
 import Index from "../Index";
-function LastSeasonSection({action,drama,romance}) {
-  console.log("romance",romance)
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+function LastSeasonSection({ action, drama, romance }) {
+  const Navigate = useNavigate();
+  const watch = async (i,mType) => {
+    if (!sessionStorage.getItem("user")) {
+      Navigate("/signup");
+    } else {
+      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
+      Navigate(`/watchmovie/${i}/${mType}`);
+    }
+  };
   return (
     <>
       {/* <!-- Start Last Seasons Section --> */}
@@ -18,8 +28,8 @@ function LastSeasonSection({action,drama,romance}) {
           <div class="container-fluid">
             <div class="season-header text-center">
               <h5 class="mb-4">featured</h5>
-              <h2 class="mb-4">Best Series</h2>
-              <p class="mb-4">News Season 5 Just flown in Watch and debate.</p>
+              <h2 class="mb-4">Best Movies</h2>
+              <p class="mb-4">News Movie 5 Just flown in Watch and debate.</p>
             </div>
             {/* <!-- Season Header End --> */}
             <div class="season-tabs">
@@ -68,49 +78,65 @@ function LastSeasonSection({action,drama,romance}) {
                   class="tab-pane animated fadeInRight show active"
                 >
                   <div class="row">
-                    {Array.isArray(drama)&&drama.map((sin,Index)=>(
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={Index}>
-                        <div class="video-block">
-                          <div class="video-thumb position-relative thumb-overlay">
-                            <a>
-                              <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
-                            </a>
-                            <div class="box-content">
-                              <ul class="icon">
-                                <li>
-                                  <a href="watch-show.html">
-                                    <i class="fas fa-play"></i>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a>
-                                    <i class="fas fa-plus"></i>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="shows-single.html">
-                                    <i class="fas fa-info"></i>
-                                  </a>
-                                </li>
-                              </ul>
+                    {Array.isArray(drama) &&
+                      drama.map((sin, Index) => (
+                        <div
+                          class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2"
+                          key={Index}
+                        >
+                          <div class="video-block">
+                            <div class="video-thumb position-relative thumb-overlay">
+                              <a>
+                                <img
+                                  alt=""
+                                  class="img-fluid"
+                                  src={`http://localhost:5000/images/${sin.image}`}
+                                />
+                              </a>
+                              <div class="box-content">
+                                <ul class="icon">
+                                  <li>
+                                    <a
+                                      onClick={() => {
+                                        watch(sin._id,sin.movieType);
+                                      }}
+                                    >
+                                      <i class="fas fa-play"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a>
+                                      <i class="fas fa-plus"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="shows-single.html">
+                                      <i class="fas fa-info"></i>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              {/* <!-- Box Content End --> */}
                             </div>
-                            {/* <!-- Box Content End --> */}
-                          </div>
-                          {/* <!-- Video Thumb End --> */}
-                          <div class="video-content">
-                            <h2 class="video-title">
-                              <a href="shows-single.html">{sin.movieName}</a>
-                            </h2>
-                            <div class="video-info d-flex align-items-center">
-                              <span class="video-year">{sin.releaseYear}</span>{" "}
-                              <span class="video-seasons">{sin.ageLimit}</span>
+                            {/* <!-- Video Thumb End --> */}
+                            <div class="video-content">
+                              <h2 class="video-title">
+                                <a href="shows-single.html">{sin.movieName}</a>
+                              </h2>
+                              <div class="video-info d-flex align-items-center">
+                                <span class="video-year">
+                                  {sin.releaseYear}
+                                </span>{" "}
+                                <span class="video-seasons">
+                                  {sin.ageLimit}
+                                </span>
+                              </div>
                             </div>
+                            {/* <!-- video Content End --> */}
                           </div>
-                          {/* <!-- video Content End --> */}
+                          {/* <!-- video Block End --> */}
                         </div>
-                        {/* <!-- video Block End --> */}
-                      </div>
-                    ))}
+                      ))}
                     {/* <!-- Col End --> */}
                   </div>
                   {/* <!-- Row End --> */}
@@ -118,97 +144,129 @@ function LastSeasonSection({action,drama,romance}) {
                 {/* <!-- Tab Pane 1 End --> */}
                 <div id="pills-action" class="tab-pane animated fadeInRight">
                   <div class="row">
-                    {Array.isArray(action)&&action.map((sin,index)=>(
-                      <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
-                      <div class="video-block">
-                        <div class="video-thumb position-relative thumb-overlay">
-                          <a>
-                            <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
-                          </a>
-                          <div class="box-content">
-                            <ul class="icon">
-                              <li>
-                                <a href="watch-show.html">
-                                  <i class="fas fa-play"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <i class="fas fa-plus"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="shows-single.html">
-                                  <i class="fas fa-info"></i>
-                                </a>
-                              </li>
-                            </ul>
+                    {Array.isArray(action) &&
+                      action.map((sin, index) => (
+                        <div
+                          class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2"
+                          key={index}
+                        >
+                          <div class="video-block">
+                            <div class="video-thumb position-relative thumb-overlay">
+                              <a>
+                                <img
+                                  alt=""
+                                  class="img-fluid"
+                                  src={`http://localhost:5000/images/${sin.image}`}
+                                />
+                              </a>
+                              <div class="box-content">
+                                <ul class="icon">
+                                  <li>
+                                    <a
+                                      onClick={() => {
+                                        watch(sin._id,sin.movieType);
+                                      }}
+                                    >
+                                      <i class="fas fa-play"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a>
+                                      <i class="fas fa-plus"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="shows-single.html">
+                                      <i class="fas fa-info"></i>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              {/* <!-- Box Content End --> */}
+                            </div>
+                            {/* <!-- Video Thumb End --> */}
+                            <div class="video-content">
+                              <h2 class="video-title">
+                                <a href="shows-single.html">{sin.movieName}</a>
+                              </h2>
+                              <div class="video-info d-flex align-items-center">
+                                <span class="video-year">
+                                  {sin.releaseYear}
+                                </span>{" "}
+                                <span class="video-seasons">
+                                  {sin.ageLimit}
+                                </span>
+                              </div>
+                            </div>
+                            {/* <!-- video Content End --> */}
                           </div>
-                          {/* <!-- Box Content End --> */}
                         </div>
-                        {/* <!-- Video Thumb End --> */}
-                        <div class="video-content">
-                          <h2 class="video-title">
-                            <a href="shows-single.html">{sin.movieName}</a>
-                          </h2>
-                          <div class="video-info d-flex align-items-center">
-                            <span class="video-year">{sin.releaseYear}</span>{" "}
-                            <span class="video-seasons">{sin.ageLimit}</span>
-                          </div>
-                        </div>
-                        {/* <!-- video Content End --> */}
-                      </div>
-                    </div>
-                    ))}
+                      ))}
                   </div>
                   {/* <!-- Row End --> */}
                 </div>
                 {/* <!-- Tab Pane 2 End --> */}
                 <div id="pills-romance" class="tab-pane animated fadeInRight">
                   <div class="row">
-                    {Array.isArray(romance)&&romance.map((sin,index)=>(
-                      <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2" key={index}>
-                      <div class="video-block">
-                        <div class="video-thumb position-relative thumb-overlay">
-                          <a>
-                            <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
-                          </a>
-                          <div class="box-content">
-                            <ul class="icon">
-                              <li>
-                                <a href="watch-show.html">
-                                  <i class="fas fa-play"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <i class="fas fa-plus"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="shows-single.html">
-                                  <i class="fas fa-info"></i>
-                                </a>
-                              </li>
-                            </ul>
+                    {Array.isArray(romance) &&
+                      romance.map((sin, index) => (
+                        <div
+                          class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2"
+                          key={index}
+                        >
+                          <div class="video-block">
+                            <div class="video-thumb position-relative thumb-overlay">
+                              <a>
+                                <img
+                                  alt=""
+                                  class="img-fluid"
+                                  src={`http://localhost:5000/images/${sin.image}`}
+                                />
+                              </a>
+                              <div class="box-content">
+                                <ul class="icon">
+                                  <li>
+                                    <a
+                                      onClick={() => {
+                                        watch(sin._id,sin.movieType);
+                                      }}
+                                    >
+                                      <i class="fas fa-play"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a>
+                                      <i class="fas fa-plus"></i>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="shows-single.html">
+                                      <i class="fas fa-info"></i>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              {/* <!-- Box Content End --> */}
+                            </div>
+                            {/* <!-- Video Thumb End --> */}
+                            <div class="video-content">
+                              <h2 class="video-title">
+                                <a href="shows-single.html">{sin.movieName}</a>
+                              </h2>
+                              <div class="video-info d-flex align-items-center">
+                                <span class="video-year">
+                                  {sin.releaseYear}
+                                </span>{" "}
+                                <span class="video-seasons">
+                                  {sin.ageLimit}
+                                </span>
+                              </div>
+                            </div>
+                            {/* <!-- video Content End --> */}
                           </div>
-                          {/* <!-- Box Content End --> */}
+                          {/* <!-- video Block End --> */}
                         </div>
-                        {/* <!-- Video Thumb End --> */}
-                        <div class="video-content">
-                          <h2 class="video-title">
-                            <a href="shows-single.html">{sin.movieName}</a>
-                          </h2>
-                          <div class="video-info d-flex align-items-center">
-                            <span class="video-year">{sin.releaseYear}</span>{" "}
-                            <span class="video-seasons">{sin.ageLimit}</span>
-                          </div>
-                        </div>
-                        {/* <!-- video Content End --> */}
-                      </div>
-                      {/* <!-- video Block End --> */}
-                    </div>
-                    ))}
+                      ))}
                     {/* <!-- Col End --> */}
                   </div>
                   {/* <!-- Row End --> */}

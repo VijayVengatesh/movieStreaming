@@ -8,6 +8,12 @@ const signupUser = mongoose.model(
     first_name: String,
     last_name: String,
     password: String,
+    watchMovie:[
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Boxoffice"
+      }
+    ]
   },{timestamps:true})
 );
 

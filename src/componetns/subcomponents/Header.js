@@ -37,7 +37,7 @@ function Header() {
               <div class="col-lg-9 pl-0">
                 {/* <!-- Start Navigation --> */}
                 <nav class="navbar navbar-expand-lg">
-                  <a class="navbar-brand" href="index.html">
+                  <a class="navbar-brand">
                     <img
                       alt=""
                       class="img-fluid"
@@ -62,25 +62,25 @@ function Header() {
                       id="navbarSupportedContent"
                     >
                       <ul class="nav navbar-nav">
-                        <li class="nav-item">
-                          <a class="nav-link active" href="index.html">
+                        <li class="nav-item" onClick={()=>{Navigate("/")}}>
+                          <a class="nav-link active">
                             Home
                           </a>
                         </li>
                         {/* <!-- Nav Item 1 End --> */}
-                        <li class="nav-item">
-                          <a class="nav-link" href="movies.html">
+                        <li class="nav-item"onClick={()=>{Navigate("/")}}>
+                          <a class="nav-link">
                             Movies
                           </a>
                         </li>
                         {/* <!-- Nav Item 2 End --> */}
-                        <li class="nav-item">
-                          <a class="nav-link" href="shows.html">
+                        <li class="nav-item" onClick={()=>{Navigate("/")}}>
+                          <a class="nav-link" >
                             Shows
                           </a>
                         </li>
                         {/* <!-- Nav Item 3 End --> */}
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" >
                           <a
                             class="nav-link menu-dropdown"
                             data-toggle="dropdown"
@@ -89,23 +89,18 @@ function Header() {
                             Pages <i class="fa fa-angle-down"></i>
                           </a>
                           <ul class="dropdown-menu fade-up" role="menu">
-                            <li>
-                              <a class="dropdown-item" href="about.html">
+                            <li onClick={()=>{Navigate("/")}}>
+                              <a class="dropdown-item">
                                 About Us
                               </a>
                             </li>
                             {/* <!-- Sub Nav Item 1 End --> */}
-                            <li>
-                              <a class="dropdown-item" href="contacts.html">
+                            <li onClick={()=>{Navigate("/")}}>
+                              <a class="dropdown-item" >
                                 Contact Us
                               </a>
                             </li>
                             {/* <!-- Sub Nav Item 2 End --> */}
-                            <li>
-                              <a class="dropdown-item" href="404.html">
-                                404
-                              </a>
-                            </li>
                             {/* <!-- Sub Nav Item 3 End --> */}
                             <li>
                               {!window.sessionStorage.getItem("user")&&<Link to="/login">Login</Link>}

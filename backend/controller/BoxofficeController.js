@@ -102,37 +102,55 @@ exports.viewsIncrement = async (req, res) => {
     { new: true }
   )
     .then((result) => {
-      res.send(result).status(200)
+      res.send(result).status(200);
     })
     .catch((err) => {
-      res.send(err).status(200)
+      res.send(err).status(200);
     });
 };
 
 exports.likesIncrement = async (req, res) => {
   console.log("likes increment router called");
-  await BoxOffice.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } },{new:true})
-  .then(result=>{
-    res.send(result).status(200)
-  })
-  .catch(err=>{
-    res.send(err).status(200)
-  })
+  await BoxOffice.findByIdAndUpdate(
+    req.params.id,
+    { $inc: { likes: 1 } },
+    { new: true }
+  )
+    .then((result) => {
+      res.send(result).status(200);
+    })
+    .catch((err) => {
+      res.send(err).status(200);
+    });
 };
 
 exports.likesdecrement = async (req, res) => {
-  console.log("likes increment router called");
-  await BoxOffice.findByIdAndUpdate(req.params.id, { $inc: { likes: -1 } },{new:true})
-  .then(result=>{
-    res.send(result).status(200)
-  })
-  .catch(err=>{
-    res.send(err).status(200)
-  })
+  console.log("likes decrement router called");
+  await BoxOffice.findById(req.params.id)
+    .then((movie) => {
+      if (movie.likes > 0) {
+        BoxOffice.findByIdAndUpdate(
+          req.params.id,
+          { $inc: { likes: -1 } },
+          { new: true }
+        )
+          .then((result) => {
+            res.send(result).status(200);
+          })
+          .catch((err) => {
+            res.send(err).status(200);
+          });
+      } else {
+        res.status(200).send("likes decremnt greater then 0");
+      }
+    })
+    .catch((err) => {
+      res.send(err).status(200);
+    });
 };
 
 exports.findSingleMoovie = async (req, res) => {
-  console.log("findsinle movie router called");
+  console.log("findsingle movie router called");
   await BoxOffice.findById({ _id: req.params.id })
     .then((result) => {
       res.send(result);
@@ -144,56 +162,82 @@ exports.findSingleMoovie = async (req, res) => {
 
 exports.popularMovies = async (req, res) => {
   console.log("popularmoives router called");
-  const result = await BoxOffice.find().sort({views:'desc'}).skip(0).limit(10)
+  const result = await BoxOffice.find()
+    .sort({ views: "desc" })
+    .skip(0)
+    .limit(10);
   res.send(result);
 };
 
-exports.trendingMovies=async(req,res)=>{
+exports.trendingMovies = async (req, res) => {
   console.log("trendingMovies Router called");
 
-  const result=await BoxOffice.find().sort({createdAt:'desc'}).skip(0).limit(6)
-  .then(result=>{
-    res.send(result)
-  })
-  .catch(err=>{
-    res.send(err)
-  })
-
-}
-
-
-exports.newSeasonActionMovies=async(req,res)=>{
-  console.log("newSeasonActionMovies Router Called")
-
-  const result=await BoxOffice.find({movieType:"Action"}).sort({createdAt:"ascending"}).skip(0).limit(6)
-  .then(result=>{
-    res.send(result)
-  })
-  .catch(err=>{
-    res.send(err)
-  })
-}
-
-exports.newSeasonDramaMovies=async(req,res)=>{
-    console.log("newSeasonDramaMovies Router Called")
-
-    const result=await  BoxOffice.find({movieType:"Drama"}).sort({createdAt:"descending"})
-    .then(result=>{
-      res.send(result)
+  const result = await BoxOffice.find()
+    .sort({ createdAt: "desc" })
+    .skip(0)
+    .limit(6)
+    .then((result) => {
+      res.send(result);
     })
-    .catch(err=>{
-      res.send(err)
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.newSeasonActionMovies = async (req, res) => {
+  console.log("newSeasonActionMovies Router Called");
+
+  const result = await BoxOffice.find({ movieType: "Action" })
+    .sort({ createdAt: "ascending" })
+    .skip(0)
+    .limit(6)
+    .then((result) => {
+      res.send(result);
     })
-}
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
-exports.newSeasonRomanceMovies=async(req,res)=>{
-  console.log("newSwasonRomanceMovies Router Called")
+exports.newSeasonDramaMovies = async (req, res) => {
+  console.log("newSeasonDramaMovies Router Called");
 
-  const result=await BoxOffice.find({movieType:"Romance"}).sort({createdAt:"desc"})
-  .then(result=>{
-    res.send(result)
-  })
-  .catch(err=>{
-    res.send(err)
-  })
-}
+  const result = await BoxOffice.find({ movieType: "Drama" })
+    .sort({ createdAt: "descending" })
+    .skip(0)
+    .limit(6)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.newSeasonRomanceMovies = async (req, res) => {
+  console.log("newSwasonRomanceMovies Router Called");
+
+  const result = await BoxOffice.find({ movieType: "Romance" })
+    .sort({ createdAt: "desc" })
+    .skip(0)
+    .limit(6)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.relatedMovies = async (req, res) => {
+  console.log("relatedMovies Router Called");
+
+  try {
+    const relatedMovie = await BoxOffice.find({
+      movieType: req.params.movieType,
+    }).sort({ rating: "descending" }).skip(0).limit(6)
+    res.status(200).send(relatedMovie);
+  } catch (error) {
+    res.json({ message: "realted movies data fetching error" }).status(200);
+  }
+};

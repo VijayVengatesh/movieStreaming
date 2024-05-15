@@ -7,6 +7,7 @@ import Admin from "./componetns/Admin";
 import './App.css'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import SingleMovie from "./componetns/SingleMovie";
 
 function App() {
   const [boxofficeMovies, setBoxofficeMovies] = useState();
@@ -52,7 +53,8 @@ function App() {
           <Route path="/" element={<Index boxofficeMovies={boxofficeMovies} popularMovies={popularMovies} trendingMovies={trendingMovies} newSesonActionMovies={newSesonActionMovies} newSesonDramaMovies={newSesonDramaMovies} newSesonRomanceMovies={newSesonRomanceMovies} />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/watchmovie/:id" element={<WatchMovie/>} />
+          <Route path="/watchmovie/:id/:movieType" element={<WatchMovie/>} />
+          <Route path="/singlemovie/:id/:movieType" element={<SingleMovie/>}/>
           <Route path="/admin" element={<Admin/>}></Route>
         </Routes>
       </BrowserRouter>

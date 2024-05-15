@@ -10,10 +10,13 @@ function BoxOffice({ box }) {
   const Navigate = useNavigate();
   console.log("box", box);
 
-  const watch = async (i) => {
-    const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-    console.log(res.data);
-    Navigate(`/watchmovie/${i}`);
+  const watch = async (i,mType) => {
+    if (!sessionStorage.getItem("user")) {
+      Navigate("/signup");
+    } else {
+      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
+      Navigate(`/watchmovie/${i}/${mType}`);
+    }
   };
 
   if (!box) {
@@ -30,7 +33,7 @@ function BoxOffice({ box }) {
               {/* <!-- Start Pupular Slider --> */}
               <OwlCarousel
                 className="owl-theme"
-                loop='true'
+                loop='false'
                 margin={10}
                 items={5}
                 responsive={{
@@ -63,11 +66,11 @@ function BoxOffice({ box }) {
                           <div className="box-content">
                             <ul className="icon">
                               <li>
-                                <Link
-                                  onClick={() => watch(sin._id)}
+                                <a
+                                  onClick={() => watch(sin._id,sin.movieType)}
                                 >
                                   <i className="fas fa-play"></i>
-                                </Link>
+                                </a>
                               </li>
                               <li>
                                 <a>

@@ -1,21 +1,22 @@
 import { useParams } from "react-router-dom";
-import playpage1 from "../images/play-page/01.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "./subcomponents/Header";
 import Footer from "./subcomponents/Footer";
+import RelatedMovies from "./subcomponents/RelatedMovies";
+
 function WatchMovie() {
   const [singleMovie, setSingleMovie] = useState(null);
+  const [relatedMovie, setRelatedMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const[likebutton,setLikeButton]=useState(true)
-  
+  const [likebutton, setLikeButton] = useState(true);
+
   const parme = useParams();
   console.log(parme);
-  console.log(parme.id);
   useEffect(() => {
-    if (parme.id) {
-      const res = axios
+    if (parme.id && parme.movieType ) {
+      axios
         .get(`http://localhost:5000/findsinglemovie/${parme.id}`)
         .then((result) => {
           console.log(result);
@@ -26,29 +27,41 @@ function WatchMovie() {
           console.log("there was the fetch problem", err);
           setError(err.message);
         });
+      axios
+        .get(`http://localhost:5000/relatedmovies/${parme.movieType}`)
+        .then((result) => {
+          setRelatedMovie(result.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [parme.id]);
+  }, [parme.id, parme.movieType]);
 
-  const likeIncrease=async()=>{
-    await axios.put(`http://localhost:5000/likeincrement/${parme.id}`)
-    .then(result=>{
-      console.log("like increse",result)
-      setLikeButton(false)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-  }
-  const likedecrease=async(req,res)=>{
-    axios.put(`http://localhost:5000/likedecrement/${parme.id}`)
-    .then(result=>{
-      console.log(result)
-      setLikeButton(true)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-  }
+  console.log("releated Movie", relatedMovie);
+
+  const likeIncrease = async () => {
+    await axios
+      .put(`http://localhost:5000/likeincrement/${parme.id}`)
+      .then((result) => {
+        console.log("like increse", result);
+        setLikeButton(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const likedecrease = async (req, res) => {
+    axios
+      .put(`http://localhost:5000/likedecrement/${parme.id}`)
+      .then((result) => {
+        console.log(result);
+        setLikeButton(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   if (loading) {
     return (
@@ -62,22 +75,21 @@ function WatchMovie() {
   if (error) {
     return <div>Error:{error}</div>;
   }
-   if(!singleMovie)
-    {
-      return(
-        <div>no moivie details available</div>
-      )
-    }
+  if (!singleMovie) {
+    return <div>no moivie details available</div>;
+  }
 
-  return(
+  return (
     <>
-    <Header/>
-    <div class="video-container">
-        <video class="video d-block" controls loop autoPlay>
-          <source src={`http://localhost:5000/videos/${singleMovie.video}`} type="video/mp4" />
+      <Header />
+      <div class="video-container">
+        <video class="video d-block" controls autoPlay>
+          <source
+            src={`http://localhost:5000/videos/${singleMovie.video}`}
+            type="video/mp4"
+          />
         </video>
       </div>
-
 
       <div class="main-content">
         {/* <!-- Start Play Details Section --> */}
@@ -88,7 +100,11 @@ function WatchMovie() {
                 <div class="row">
                   <div class="col-md-12">
                     <div class="play-thumb mb-4">
-                      <img class="img-fluid" src={`http://localhost:5000/images/${singleMovie.image}`} alt="" />
+                      <img
+                        class="img-fluid"
+                        src={`http://localhost:5000/images/${singleMovie.image}`}
+                        alt=""
+                      />
                       <div class="top-badge">
                         <div class="video-badge">
                           <img
@@ -120,7 +136,8 @@ function WatchMovie() {
                   {/* <!-- Title Block --> */}
                   <div class="details-info mb-4">
                     <span>
-                      <i class="icofont-user mr-2" aria-hidden="true"></i> {singleMovie.ageLimit}
+                      <i class="icofont-user mr-2" aria-hidden="true"></i>{" "}
+                      {singleMovie.ageLimit}
                     </span>
                     <span>
                       <i class="icofont-clock-time mr-2" aria-hidden="true"></i>{" "}
@@ -144,9 +161,7 @@ function WatchMovie() {
                   </div>
                   {/* <!-- Details Info --> */}
                   <div class="details-desc">
-                    <p>
-                     {singleMovie.description}
-                    </p>
+                    <p>{singleMovie.description}</p>
                   </div>
                   {/* <!-- Details Desc --> */}
                   <div class="movie-persons mb-4">
@@ -157,9 +172,7 @@ function WatchMovie() {
                     {/* <!-- Person Block --> */}
                     <div class="person-block">
                       <h5 class="title">Cast</h5>
-                      <p>
-                       {singleMovie.cast}
-                      </p>
+                      <p>{singleMovie.cast}</p>
                     </div>
                     {/* <!-- Person Block --> */}
                   </div>
@@ -167,13 +180,17 @@ function WatchMovie() {
                   <div class="details-buttons">
                     <div class="row d-flex align-items-center">
                       <div class="col-6 col-xl mb-xl-0 mb-3">
-                        <a onClick={likebutton?likeIncrease:likedecrease}
+                        <a
+                          onClick={likebutton ? likeIncrease : likedecrease}
                           class="btn d-block hvr-sweep-to-right"
                           tabIndex="0"
                         >
-                          
-                          {likebutton?<i class="icofont-thumbs-up"></i>:<i class="icofont-thumbs-down"></i>}
-                          {likebutton?"like":"dislike"}
+                          {likebutton ? (
+                            <i class="icofont-thumbs-up"></i>
+                          ) : (
+                            <i class="icofont-thumbs-down"></i>
+                          )}
+                          {likebutton ? "like" : "dislike"}
                         </a>
                       </div>
                       {/* <!-- Col End --> */}
@@ -339,307 +356,11 @@ function WatchMovie() {
         </section>
         {/* <!-- Play Details Section End --> */}
         {/* <!-- Start Related Movies Section --> */}
-        <section class="related-movies">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12">
-                <h2 class="block-title">Related Movies</h2>
-              </div>
-              {/* <!-- Col End --> */}
-            </div>
-            {/* <!-- Row End --> */}
-            <div class="row">
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/01.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End --> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">life is Beautiful</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/02.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End -/-> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">The End</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/03.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End --> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">the beginning</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/04.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End --> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">The Search</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/05.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End --> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">The Treasures</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-              <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                <div class="video-block">
-                  <div class="video-thumb position-relative thumb-overlay">
-                    <a>
-                      <img
-                        class="img-fluid"
-                        src="images/best-action/06.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <div class="box-content">
-                      <ul class="icon">
-                        <li>
-                          <a href="watch-movie.html">
-                            <i class="fas fa-play"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="movie-single.html">
-                            <i class="fas fa-info"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Box Content End --> */}
-                  </div>
-                  {/* <!-- Video Thumb End --> */}
-                  <div class="video-content">
-                    <h2 class="video-title">
-                      <a href="movie-single.html">Problems</a>
-                    </h2>
-                    <div class="video-info d-flex align-items-center">
-                      <span class="video-year">2021</span>
-                      <span class="video-age">+18</span>
-                      <span class="video-type">Action</span>
-                    </div>
-                  </div>
-                  {/* <!-- video Content End --> */}
-                </div>
-                {/* <!-- video Block End --> */}
-              </div>
-              {/* <!-- Col End --> */}
-            </div>
-            {/* <!-- Row End --> */}
-          </div>
-          {/* <!-- Container End --> */}
-        </section>
+        <RelatedMovies relatedMovie={relatedMovie}/>
         {/* <!-- Related Movies Section End --> */}
-        <Footer/>
+        <Footer />
       </div>
     </>
-  )
+  );
 }
 export default WatchMovie;
