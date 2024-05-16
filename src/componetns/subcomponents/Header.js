@@ -68,7 +68,7 @@ function Header() {
                           </a>
                         </li>
                         {/* <!-- Nav Item 1 End --> */}
-                        <li class="nav-item"onClick={()=>{Navigate("/")}}>
+                        <li class="nav-item"onClick={()=>{Navigate("/movies")}}>
                           <a class="nav-link">
                             Movies
                           </a>

@@ -8,6 +8,7 @@ import './App.css'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SingleMovie from "./componetns/SingleMovie";
+import Movies from "./componetns/Movies";
 
 function App() {
   const [boxofficeMovies, setBoxofficeMovies] = useState();
@@ -51,6 +52,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index boxofficeMovies={boxofficeMovies} popularMovies={popularMovies} trendingMovies={trendingMovies} newSesonActionMovies={newSesonActionMovies} newSesonDramaMovies={newSesonDramaMovies} newSesonRomanceMovies={newSesonRomanceMovies} />}></Route>
+          <Route path="/movies" element={<Movies/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/watchmovie/:id/:movieType" element={<WatchMovie/>} />

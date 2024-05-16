@@ -1,7 +1,7 @@
 
 const { createUser, userWithBoxoffice, findUserWithMovies } = require('../controller/SignupController')
 const { checkuser } = require('../controller/LoginController')
-const { insert, getBoxOfficeMovies, viewsIncrement, findSingleMoovie, popularMovies, likesIncrement, likesdecrement, trendingMovies, newSeasonActionMovies, newSeasonDramaMovies, newSeasonRomanceMovies, relatedMovies } = require('../controller/BoxofficeController')
+const { insert, getBoxOfficeMovies, viewsIncrement, findSingleMoovie, popularMovies, likesIncrement, likesdecrement, trendingMovies, newSeasonActionMovies, newSeasonDramaMovies, newSeasonRomanceMovies, relatedMovies, upCommingMovies } = require('../controller/BoxofficeController')
 const express=require('express')
 const router=express.Router()
 
@@ -35,6 +35,6 @@ router.post("/userwithboxoffice/:movieId",userWithBoxoffice)
 
 router.get("/finduserwithmovies/:userId",findUserWithMovies)
 
-
+router.get("/upcommingmovies",upCommingMovies)
 router.get("/relatedmovies/:movieType",relatedMovies)
 module.exports=router

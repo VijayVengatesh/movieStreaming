@@ -151,7 +151,7 @@ function MainTabs() {
                       role="tab"
                       aria-selected="true"
                     >
-                      Featured
+                      upCommingMovies
                     </a>
                   </li>
                   <li class="nav-item" role="presentation">

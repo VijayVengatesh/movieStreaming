@@ -3,6 +3,8 @@ const BoxOffice = require("../model/BoxOffice");
 const path = require("path");
 const { error } = require("console");
 const { default: axios } = require("axios");
+const { format, formatDate } = require("date-fns");
+const { Types } = require("mongoose");
 let randomImage;
 let randomVideo;
 
@@ -229,13 +231,28 @@ exports.newSeasonRomanceMovies = async (req, res) => {
     });
 };
 
+exports.upCommingMovies=async(req,res)=>{
+  console.log("upCommingMovies Router Called")
+  let date=new Date().getDate()
+  let month=new Date().getMonth()
+  let year=new Date().getFullYear()
+  let curDate=`${year}-${month+1}-${date+1}`
+  console.log(curDate);
+
+  try {
+    const upCommingMovie=await BoxOffice.find({releaseYear:{$gt:curDate}}).skip(0).limit(6)
+    res.status(200).send(upCommingMovie)
+  } catch (error) {
+    res.status(200).send(error)
+  }
+}
 exports.relatedMovies = async (req, res) => {
   console.log("relatedMovies Router Called");
 
   try {
     const relatedMovie = await BoxOffice.find({
       movieType: req.params.movieType,
-    }).sort({ rating: "descending" }).skip(0).limit(6)
+    }).sort({ rating: "descending" }).skip(1).limit(6)
     res.status(200).send(relatedMovie);
   } catch (error) {
     res.json({ message: "realted movies data fetching error" }).status(200);

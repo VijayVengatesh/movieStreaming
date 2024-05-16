@@ -3,7 +3,7 @@ const mongoose=require('mongoose')
 
 const BoxOffice=mongoose.model("Boxoffice",new mongoose.Schema({
     movieName:String,
-    releaseYear:String,
+    releaseYear:Date,
     ageLimit:String,
     movieType:String,
     image:String,

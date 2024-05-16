@@ -78,7 +78,7 @@ function MovieDetails() {
           <div class="form-group">
             <label for="exampleFormControlInput1">ReleaseYear</label>
             <input
-              type="text"
+              type="date"
               class="form-control"
               name="releaseYear"
               id="exampleFormControlInput1"
