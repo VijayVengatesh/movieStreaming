@@ -148,7 +148,7 @@ function WatchMovie() {
                         class="icofont-simple-smile mr-2"
                         aria-hidden="true"
                       ></i>{" "}
-                      {singleMovie.releaseYear}
+                      {new Date(singleMovie.releaseYear).getFullYear()}
                     </span>
                     <span>
                       <i class="icofont-movie mr-2" aria-hidden="true"></i>{" "}

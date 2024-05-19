@@ -125,7 +125,7 @@ function LastSeasonSection({ action, drama, romance }) {
                               </h2>
                               <div class="video-info d-flex align-items-center">
                                 <span class="video-year">
-                                  {sin.releaseYear}
+                                  {new Date(sin.releaseYear).getFullYear()}
                                 </span>{" "}
                                 <span class="video-seasons">
                                   {sin.ageLimit}
@@ -191,7 +191,7 @@ function LastSeasonSection({ action, drama, romance }) {
                               </h2>
                               <div class="video-info d-flex align-items-center">
                                 <span class="video-year">
-                                  {sin.releaseYear}
+                                  {new Date(sin.releaseYear).getFullYear()}
                                 </span>{" "}
                                 <span class="video-seasons">
                                   {sin.ageLimit}
@@ -255,7 +255,7 @@ function LastSeasonSection({ action, drama, romance }) {
                               </h2>
                               <div class="video-info d-flex align-items-center">
                                 <span class="video-year">
-                                  {sin.releaseYear}
+                                  {new Date(sin.releaseYear).getFullYear()}
                                 </span>{" "}
                                 <span class="video-seasons">
                                   {sin.ageLimit}

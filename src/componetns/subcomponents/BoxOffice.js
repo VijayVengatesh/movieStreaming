@@ -91,7 +91,7 @@ function BoxOffice({ box }) {
                           </h2>
                           <div className="video-info d-flex align-items-center">
                             <span className="video-year">
-                              {sin.releaseYear}
+                              {new Date(sin.releaseYear).getFullYear()}
                             </span>{" "}
                             <span className="video-age">{sin.ageLimit}</span>{" "}
                             <span className="video-type">{sin.movieType}</span>

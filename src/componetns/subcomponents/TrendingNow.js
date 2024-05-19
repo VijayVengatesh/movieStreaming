@@ -68,7 +68,7 @@ function TrendingNow({ trend }) {
                             <a>{sin.movieName}</a>
                           </h2>
                           <div class="video-info d-flex align-items-center">
-                            <span class="video-year">{sin.releaseYear}</span>{" "}
+                            <span class="video-year">{new Date(sin.releaseYear).getFullYear()}</span>{" "}
                             <span class="video-age">{sin.ageLimit}</span>{" "}
                             <span class="video-type">{sin.movieType}</span>
                           </div>

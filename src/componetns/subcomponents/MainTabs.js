@@ -1,55 +1,23 @@
-import latestAdictionimag01 from "../../images/latest-aditions/01.jpg";
-import latestAdictionimag02 from "../../images/latest-aditions/02.jpg";
-import latestAdictionimag03 from "../../images/latest-aditions/03.jpg";
+import axios from "axios";
 
 import latesMovies1 from "../../images/latest-movies/01.jpg";
 
 import showMovies1 from '../../images/latest-shows/01.jpg'
-function MainTabs() {
-  const letestAddictionMovies = [
-    {
-      img: latestAdictionimag01,
-      name: "IRON DOOR",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-    {
-      img: latestAdictionimag02,
-      name: "IRON DOOR1",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-    {
-      img: latestAdictionimag03,
-      name: "IRON DOOR2",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-    {
-      img: latestAdictionimag03,
-      name: "IRON DOOR2",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-    {
-      img: latestAdictionimag03,
-      name: "IRON DOOR2",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-    {
-      img: latestAdictionimag03,
-      name: "IRON DOOR2",
-      releaseYear: "2021",
-      agelimit: "18+",
-      movieType: "Action",
-    },
-  ];
+import { useNavigate } from "react-router-dom";
+function MainTabs({upComMovies}) {
+  const Navigate=useNavigate()
+  console.log("upcomming movies",upComMovies)
+  const watch = async (i,mType) => {
+    if (!sessionStorage.getItem("user")) {
+      Navigate("/signup");
+    } else {
+      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
+      Navigate(`/watchmovie/${i}/${mType}`);
+    }
+  };
+  if(!upComMovies){
+    return <h1>no</h1>
+  }
 
   const movies = [
     {
@@ -151,7 +119,7 @@ function MainTabs() {
                       role="tab"
                       aria-selected="true"
                     >
-                      upCommingMovies
+                      Upcomming Movies
                     </a>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -185,7 +153,7 @@ function MainTabs() {
                   class="tab-pane animated fadeInRight show active"
                 >
                   <div class="row">
-                    {letestAddictionMovies.map((sin, index) => (
+                    {Array.isArray(upComMovies)&&upComMovies.map((sin, index) => (
                       <div
                         class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2"
                         key={index}
@@ -193,12 +161,12 @@ function MainTabs() {
                         <div class="video-block">
                           <div class="video-thumb position-relative thumb-overlay">
                             <a>
-                              <img alt="" class="img-fluid" src={sin.img} />
+                              <img alt="" class="img-fluid" src={`http://localhost:5000/images/${sin.image}`} />
                             </a>
                             <div class="box-content">
                               <ul class="icon">
                                 <li>
-                                  <a href="watch-movie.html">
+                                  <a onClick={()=>{watch(sin._id,sin.movieType)}}>
                                     <i class="fas fa-play"></i>
                                   </a>
                                 </li>
@@ -219,10 +187,10 @@ function MainTabs() {
                           {/* <!-- Video Thumb End --> */}
                           <div class="video-content">
                             <h2 class="video-title">
-                              <a href="movie-single.html">{sin.name}</a>
+                              <a href="movie-single.html">{sin.movieName}</a>
                             </h2>
                             <div class="video-info d-flex align-items-center">
-                              <span class="video-year">{sin.releaseYear}</span>{" "}
+                              <span class="video-year">{new Date(sin.releaseYear).getFullYear() }</span>{" "}
                               <span class="video-age">{sin.agelimit}</span>{" "}
                               <span class="video-type">{sin.movieType}</span>
                             </div>

@@ -9,7 +9,7 @@ import Popular from "./subcomponents/Popular";
 import TrendingNow from "./subcomponents/TrendingNow";
 import axios from "axios";
 
-function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovies,newSesonDramaMovies,newSesonRomanceMovies}) {
+function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovies,newSesonDramaMovies,newSesonRomanceMovies,upCommingMovies}) {
   return (
     <>
     <div id="loader-wrapper">
@@ -29,7 +29,7 @@ function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovie
         </div>
         {/* main content start */}
         <div className="main-content">
-          <MainTabs />
+          <MainTabs upComMovies={upCommingMovies}/>
           <Popular popMovies={popularMovies}/>
           <BoxOffice box={boxofficeMovies}/>
           <TrendingNow trend={trendingMovies}/>

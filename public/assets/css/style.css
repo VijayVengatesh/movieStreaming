@@ -1698,7 +1698,7 @@ ul.navbar-nav > li.active a::before {
 [class^=swiper-button-] {
     width: 44px;
     opacity: 0;
-    visibility: hidden;
+    visibility: visible;
 }
 
 .swiper-button-prev {
