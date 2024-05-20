@@ -48,20 +48,20 @@ jQuery(function ($) {
 
     // Search Pop-up
 
-    if ($('.modal-popup').length > 0) {
-        $('.modal-popup').magnificPopup({
-            type: 'inline',
-            fixedContentPos: false,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            closeBtnInside: false,
-            callbacks: {
-                beforeOpen: function beforeOpen() {
-                    this.st.mainClass = "my-mfp-slide-bottom promo-popup";
-                }
-            }
-        });
-    }
+    // if ($('.modal-popup').length > 0) {
+    //     $('.modal-popup').magnificPopup({
+    //         type: 'inline',
+    //         fixedContentPos: false,
+    //         fixedBgPos: true,
+    //         overflowY: 'auto',
+    //         closeBtnInside: false,
+    //         callbacks: {
+    //             beforeOpen: function beforeOpen() {
+    //                 this.st.mainClass = "my-mfp-slide-bottom promo-popup";
+    //             }
+    //         }
+    //     });
+    // }
 
 
     // Slick Slider - Main Slider

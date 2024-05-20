@@ -3,6 +3,7 @@ const { createUser, userWithBoxoffice, findUserWithMovies } = require('../contro
 const { checkuser } = require('../controller/LoginController')
 const { insert, getBoxOfficeMovies, viewsIncrement, findSingleMoovie, popularMovies, likesIncrement, likesdecrement, trendingMovies, newSeasonActionMovies, newSeasonDramaMovies, newSeasonRomanceMovies, relatedMovies, upCommingMovies } = require('../controller/BoxofficeController')
 const express=require('express')
+const { searchController } = require('../controller/SearchController')
 const router=express.Router()
 
 
@@ -37,4 +38,7 @@ router.get("/finduserwithmovies/:userId",findUserWithMovies)
 
 router.get("/upcommingmovies",upCommingMovies)
 router.get("/relatedmovies/:movieType",relatedMovies)
+
+
+router.post("/search/:moviename",searchController)
 module.exports=router

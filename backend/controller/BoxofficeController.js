@@ -1,10 +1,7 @@
 const multer = require("multer");
 const BoxOffice = require("../model/BoxOffice");
 const path = require("path");
-const { error } = require("console");
 const { default: axios } = require("axios");
-const { format, formatDate } = require("date-fns");
-const { Types } = require("mongoose");
 let randomImage;
 let randomVideo;
 

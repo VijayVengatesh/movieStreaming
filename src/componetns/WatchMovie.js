@@ -36,6 +36,12 @@ function WatchMovie() {
           console.log(err);
         });
     }
+
+    return ()=>{
+      setSingleMovie(null)
+    }
+    
+
   }, [parme.id, parme.movieType]);
 
   console.log("releated Movie", relatedMovie);
@@ -83,12 +89,12 @@ function WatchMovie() {
     <>
       <Header />
       <div class="video-container">
-        <video class="video d-block" controls autoPlay>
+        <video class="video d-block" controls autoPlay >
           <source
             src={`http://localhost:5000/videos/${singleMovie.video}`}
             type="video/mp4"
           />
-        </video>
+        </video> 
       </div>
 
       <div class="main-content">

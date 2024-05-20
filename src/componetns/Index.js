@@ -8,6 +8,7 @@ import MainTabs from "./subcomponents/MainTabs";
 import Popular from "./subcomponents/Popular";
 import TrendingNow from "./subcomponents/TrendingNow";
 import axios from "axios";
+import { type } from "@testing-library/user-event/dist/type";
 
 function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovies,newSesonDramaMovies,newSesonRomanceMovies,upCommingMovies}) {
   return (
@@ -17,7 +18,6 @@ function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovie
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
       </div>
-
       
       {/* Header Componet Start */}
       <div className="main" id="main">
