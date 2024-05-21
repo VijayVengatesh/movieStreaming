@@ -3,18 +3,9 @@ import axios from "axios";
 import latesMovies1 from "../../images/latest-movies/01.jpg";
 
 import showMovies1 from '../../images/latest-shows/01.jpg'
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 function MainTabs({upComMovies}) {
-  const Navigate=useNavigate()
   console.log("upcomming movies",upComMovies)
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
   if(!upComMovies){
     return <h1>no</h1>
   }
@@ -166,9 +157,12 @@ function MainTabs({upComMovies}) {
                             <div class="box-content">
                               <ul class="icon">
                                 <li>
-                                  <a onClick={()=>{watch(sin._id,sin.movieType)}}>
-                                    <i class="fas fa-play"></i>
-                                  </a>
+                                <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
+                                </a>
+                                </Link>
                                 </li>
                                 <li>
                                   <a>

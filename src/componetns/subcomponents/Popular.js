@@ -7,14 +7,6 @@ import axios from "axios";
 function Popular({ popMovies }) {
   const Navigate = useNavigate();
   const popMovie = popMovies;
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
   if (!popMovies) {
     return <h1>popular Movies no data for fetching</h1>;
   }
@@ -61,9 +53,12 @@ function Popular({ popMovies }) {
                           <div className="box-content">
                             <ul className="icon">
                               <li>
-                                <a onClick={() => watch(sin._id,sin.movieType)}>
+                              <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
                                   <i className="fas fa-play"></i>
                                 </a>
+                                </Link>
                               </li>
                               <li>
                                 <a>

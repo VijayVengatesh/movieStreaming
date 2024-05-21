@@ -1,16 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function RelatedMovies({ relatedMovie }) {
-const Navigate=useNavigate()
   console.log(relatedMovie);
-  const singleMovie = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      Navigate(`/singlemovie/${i}/${mType}`)
-    }
-  };
   if (!relatedMovie) {
     return <h1>no data for realted movies</h1>;
   }
@@ -44,9 +36,12 @@ const Navigate=useNavigate()
                       <div class="box-content">
                         <ul class="icon">
                           <li>
-                            <a onClick={()=>{singleMovie(sin._id,sin.movieType)}}>
-                              <i class="fas fa-play"></i>
-                            </a>
+                          <Link to={`http://localhost:3000/singlemovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
+                                </a>
+                                </Link>
                           </li>
                           <li>
                             <a>

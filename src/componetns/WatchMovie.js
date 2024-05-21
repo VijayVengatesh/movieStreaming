@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "./subcomponents/Header";
 import Footer from "./subcomponents/Footer";
 import RelatedMovies from "./subcomponents/RelatedMovies";
+import { id } from "date-fns/locale";
 
 function WatchMovie() {
   const [singleMovie, setSingleMovie] = useState(null);
@@ -11,13 +12,26 @@ function WatchMovie() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [likebutton, setLikeButton] = useState(true);
-
-  const parme = useParams();
-  console.log(parme);
+  const[link,setLink]=useState('')
+  const location=useLocation()
+  console.log("location",location)
+  const useParams=new URLSearchParams(location.search)
+  let movieId=useParams.get("id")
+  let movieType=useParams.get("movietype")
+  console.log("mtype",movieType)
+  // const parme = useParams();
+  // console.log(parme);
   useEffect(() => {
-    if (parme.id && parme.movieType ) {
+    if (movieId && movieType ) {
+      axios.put(`http://localhost:5000/viewsincrement/${movieId}`)
+      .then(response=>{
+        console.log("views increment",response.data)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
       axios
-        .get(`http://localhost:5000/findsinglemovie/${parme.id}`)
+        .get(`http://localhost:5000/findsinglemovie/${movieId}`)
         .then((result) => {
           console.log(result);
           setSingleMovie(result.data);
@@ -28,7 +42,7 @@ function WatchMovie() {
           setError(err.message);
         });
       axios
-        .get(`http://localhost:5000/relatedmovies/${parme.movieType}`)
+        .get(`http://localhost:5000/relatedmovies/${movieType}`)
         .then((result) => {
           setRelatedMovie(result.data);
         })
@@ -42,13 +56,13 @@ function WatchMovie() {
     }
     
 
-  }, [parme.id, parme.movieType]);
+  }, [movieId, movieType]);
 
   console.log("releated Movie", relatedMovie);
 
   const likeIncrease = async () => {
     await axios
-      .put(`http://localhost:5000/likeincrement/${parme.id}`)
+      .put(`http://localhost:5000/likeincrement/${movieId}`)
       .then((result) => {
         console.log("like increse", result);
         setLikeButton(false);
@@ -59,7 +73,7 @@ function WatchMovie() {
   };
   const likedecrease = async (req, res) => {
     axios
-      .put(`http://localhost:5000/likedecrement/${parme.id}`)
+      .put(`http://localhost:5000/likedecrement/${movieId}`)
       .then((result) => {
         console.log(result);
         setLikeButton(true);
@@ -68,6 +82,14 @@ function WatchMovie() {
         console.log(err);
       });
   };
+
+  const whatsapp=()=>{
+    setLink(`http://localhost:3000/watchmovie?id=663dbc979b7c7784e075dfda&movietype=Actiion`)
+    const whatsappUrl=`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`
+    window.open(whatsappUrl)
+
+
+  }
 
   if (loading) {
     return (
@@ -89,7 +111,7 @@ function WatchMovie() {
     <>
       <Header />
       <div class="video-container">
-        <video class="video d-block" controls autoPlay >
+        <video class="video d-block" controls autoPlay muted >
           <source
             src={`http://localhost:5000/videos/${singleMovie.video}`}
             type="video/mp4"
@@ -320,9 +342,9 @@ function WatchMovie() {
                               {/* <!-- modal header End --> */}
                               <div class="modal-body">
                                 <div class="icon-container d-flex">
-                                  <div class="icon-block">
-                                    <i class="social-icon fab fa-twitter fa-2x"></i>
-                                    <p>Twitter</p>
+                                  <div class="icon-block" onClick={()=>{whatsapp(singleMovie.video)}}>
+                                    <i class="social-icon fab fa-whatsapp fa-2x"></i>
+                                    <p>Whatsapp</p>
                                   </div>
                                   <div class="icon-block">
                                     <i class="social-icon fab fa-facebook fa-2x"></i>

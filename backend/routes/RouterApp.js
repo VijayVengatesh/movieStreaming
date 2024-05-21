@@ -4,6 +4,7 @@ const { checkuser } = require('../controller/LoginController')
 const { insert, getBoxOfficeMovies, viewsIncrement, findSingleMoovie, popularMovies, likesIncrement, likesdecrement, trendingMovies, newSeasonActionMovies, newSeasonDramaMovies, newSeasonRomanceMovies, relatedMovies, upCommingMovies } = require('../controller/BoxofficeController')
 const express=require('express')
 const { searchController } = require('../controller/SearchController')
+const { generateLink } = require('../controller/ShareSocialMedia')
 const router=express.Router()
 
 
@@ -41,4 +42,6 @@ router.get("/relatedmovies/:movieType",relatedMovies)
 
 
 router.post("/search/:moviename",searchController)
+
+router.get("/lingenerate",generateLink)
 module.exports=router

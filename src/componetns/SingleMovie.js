@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "./subcomponents/Header";
 import Footer from "./subcomponents/Footer";
 import RelatedMovies from "./subcomponents/RelatedMovies";
@@ -12,17 +12,20 @@ const Navigate=useNavigate()
   const [error, setError] = useState(null);
   const[likebutton,setLikeButton]=useState(true)
 
-  const param = useParams();
+  const location=useLocation()
+  const useParams=new URLSearchParams(location.search)
+  let movieId=useParams.get("id")
+  let movieType=useParams.get("movietype")
   useEffect(() => {
     async function getData() {
       try {
         const sMovie = await axios.get(
-          `http://localhost:5000/findsinglemovie/${param.id}`
+          `http://localhost:5000/findsinglemovie/${movieId}`
         );
         setSingleMovie(sMovie.data);
 
         const rMovie = await axios.get(
-          `http://localhost:5000/relatedmovies/${param.movieType}`
+          `http://localhost:5000/relatedmovies/${movieType}`
         );
         setRelatedMovie(rMovie.data);
         setLoading(false);
@@ -31,11 +34,16 @@ const Navigate=useNavigate()
       }
     }
     getData();
-  }, [param.id, param.movieType]);
+
+    return()=>{
+        setSingleMovie(null)
+        setRelatedMovie(null)
+    }
+  }, [movieId, movieType]);
 
   const likeIncrease=async()=>{
     await axios
-    .put(`http://localhost:5000/likeincrement/${param.id}`)
+    .put(`http://localhost:5000/likeincrement/${movieId}`)
     .then((result) => {
       console.log("like increse", result);
       setLikeButton(false);
@@ -46,7 +54,7 @@ const Navigate=useNavigate()
   }
   const likedecrease=async()=>{
     axios
-    .put(`http://localhost:5000/likedecrement/${param.id}`)
+    .put(`http://localhost:5000/likedecrement/${movieId}`)
     .then((result) => {
       console.log("likedecress",result);
       setLikeButton(true);
@@ -55,16 +63,6 @@ const Navigate=useNavigate()
       console.log(err);
     });
   }
-
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      console.log(res.data);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
   if (loading) {
     return (
       <div id="loader-wrapper">
@@ -95,11 +93,13 @@ const Navigate=useNavigate()
                                 <a class="d-flex align-items-center">
                                     <div class="play-icon">
                                         <div class="circle pulse"></div>
-                                        <div class="circle" onClick={()=>{watch(singleMovie._id,singleMovie.movieType)}}>
+                                        <Link to={`http://localhost:3000/watchmovie?id=${singleMovie._id}&movietype=${singleMovie.movieType}`}>
+                                        <div class="circle">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                                                 <polygon points="40,30 65,50 40,70"></polygon>
                                             </svg>
                                         </div>
+                                        </Link>
                                     </div>
                                     <h2 class="banner-name text-white font-weight-700">{singleMovie.movieName}</h2>
                                 </a>

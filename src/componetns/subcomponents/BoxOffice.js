@@ -3,22 +3,10 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import popularMovie1 from "../../images/popular/01.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import WatchMovie from "../WatchMovie";
-import { useState } from "react";
-function BoxOffice({ box }) {
-  const Navigate = useNavigate();
-  console.log("box", box);
-
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
-
+function BoxOffice({ box,userlogin }) {
+  console.log("box userlofind",userlogin)
   if (!box) {
     return <h1>no data for box</h1>;
   }
@@ -66,11 +54,13 @@ function BoxOffice({ box }) {
                           <div className="box-content">
                             <ul className="icon">
                               <li>
+                              <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
                                 <a
-                                  onClick={() => watch(sin._id,sin.movieType)}
                                 >
                                   <i className="fas fa-play"></i>
                                 </a>
+                                </Link>
+                                
                               </li>
                               <li>
                                 <a>

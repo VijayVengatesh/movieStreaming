@@ -8,9 +8,13 @@ import MainTabs from "./subcomponents/MainTabs";
 import Popular from "./subcomponents/Popular";
 import TrendingNow from "./subcomponents/TrendingNow";
 import axios from "axios";
-import { type } from "@testing-library/user-event/dist/type";
+import { useNavigate } from "react-router-dom";
 
 function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovies,newSesonDramaMovies,newSesonRomanceMovies,upCommingMovies}) {
+  const Navigate=useNavigate()
+  if(sessionStorage.getItem("user")==null){
+    Navigate("/signup")
+  }
   return (
     <>
     <div id="loader-wrapper">
@@ -31,7 +35,7 @@ function Index({boxofficeMovies,popularMovies,trendingMovies,newSesonActionMovie
         <div className="main-content">
           <MainTabs upComMovies={upCommingMovies}/>
           <Popular popMovies={popularMovies}/>
-          <BoxOffice box={boxofficeMovies}/>
+          <BoxOffice box={boxofficeMovies} />
           <TrendingNow trend={trendingMovies}/>
           <LastSeasonSection action={newSesonActionMovies} drama={newSesonDramaMovies} romance={newSesonRomanceMovies}/>
         </div>

@@ -1,16 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 function TrendingNow({ trend }) {
-  const Navigate = useNavigate();
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      console.log(res.data);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
   return (
     <>
       {/* <!-- Start Trending Section --> */}
@@ -38,15 +28,12 @@ function TrendingNow({ trend }) {
                           <div class="box-content">
                             <ul class="icon">
                               <li>
-                                <a>
-                                  <a
-                                    onClick={() => {
-                                      watch(sin._id,sin.movieType);
-                                    }}
-                                  >
-                                    <i class="fas fa-play"></i>
-                                  </a>
+                              <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
                                 </a>
+                                </Link>
                               </li>
                               <li>
                                 <a>

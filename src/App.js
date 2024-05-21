@@ -17,6 +17,7 @@ function App() {
   const [newSesonDramaMovies, setNewSeasonDramaMovies] = useState();
   const [newSesonRomanceMovies, setNewSeasonRomanceMovies] = useState();
   const [upCommingMovies, setUpCommingMovies] = useState();
+  
 
   useEffect(() => {
     async function getData() {
@@ -83,8 +84,8 @@ function App() {
           ></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/watchmovie/:id/:movieType" element={<WatchMovie />} />
-          <Route path="/singlemovie/:id/:movieType" element={<SingleMovie />} />
+          <Route path="/watchmovie" element={<WatchMovie />} />
+          <Route path="/singlemovie" element={<SingleMovie />} />
           <Route path="/admin" element={<Admin />}></Route>
         </Routes>
       </BrowserRouter>

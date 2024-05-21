@@ -3,18 +3,9 @@ import drama1 from "../../images/best-drama/01.jpg";
 import action1 from "../../images/best-action/01.jpg";
 import romance1 from "../../images/best-romance/01.jpg";
 import Index from "../Index";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 function LastSeasonSection({ action, drama, romance }) {
-  const Navigate = useNavigate();
-  const watch = async (i,mType) => {
-    if (!sessionStorage.getItem("user")) {
-      Navigate("/signup");
-    } else {
-      const res = await axios.put(`http://localhost:5000/viewsincrement/${i}`);
-      Navigate(`/watchmovie/${i}/${mType}`);
-    }
-  };
   return (
     <>
       {/* <!-- Start Last Seasons Section --> */}
@@ -96,13 +87,12 @@ function LastSeasonSection({ action, drama, romance }) {
                               <div class="box-content">
                                 <ul class="icon">
                                   <li>
-                                    <a
-                                      onClick={() => {
-                                        watch(sin._id,sin.movieType);
-                                      }}
-                                    >
-                                      <i class="fas fa-play"></i>
-                                    </a>
+                                  <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
+                                </a>
+                                </Link>
                                   </li>
                                   <li>
                                     <a>
@@ -162,13 +152,12 @@ function LastSeasonSection({ action, drama, romance }) {
                               <div class="box-content">
                                 <ul class="icon">
                                   <li>
-                                    <a
-                                      onClick={() => {
-                                        watch(sin._id,sin.movieType);
-                                      }}
-                                    >
-                                      <i class="fas fa-play"></i>
-                                    </a>
+                                  <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
+                                </a>
+                                </Link>
                                   </li>
                                   <li>
                                     <a>
@@ -226,13 +215,12 @@ function LastSeasonSection({ action, drama, romance }) {
                               <div class="box-content">
                                 <ul class="icon">
                                   <li>
-                                    <a
-                                      onClick={() => {
-                                        watch(sin._id,sin.movieType);
-                                      }}
-                                    >
-                                      <i class="fas fa-play"></i>
-                                    </a>
+                                  <Link to={`http://localhost:3000/watchmovie?id=${encodeURIComponent(sin._id) }&movietype=${encodeURI(sin.movieType)}`}>
+                                <a
+                                >
+                                  <i className="fas fa-play"></i>
+                                </a>
+                                </Link>
                                   </li>
                                   <li>
                                     <a>
